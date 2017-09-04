@@ -26,6 +26,8 @@ I have chosen option 2 here so my Packer build command will not need AWS access 
 
 ### Build
 
-```/path/to/packer build Packer+Sumo_Shell_Provisioner.json
+``` Shell
+/path/to/packer build Packer+Sumo_Shell_Provisioner.json
 \ -var 'sumo_access_id=<sumo_access_id>' 
-\ -var -sumo_access_key=<sumo_access_key>'```
+\ -var -sumo_access_key=<sumo_access_key>'
+```
