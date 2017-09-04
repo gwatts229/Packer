@@ -31,3 +31,17 @@ I have chosen option 2 here so my Packer build command will not need AWS access 
 \ -var 'sumo_access_id=<sumo_access_id>' 
 \ -var -sumo_access_key=<sumo_access_key>'
 ```
+
+### Build in US1, SYD, or DUB
+
+If your Sumo Logic account is in a different geographical region, you will need to pass in the optional `sumo_collector_download_url` parameter into your build command. See [here](https://help.sumologic.com/Send-Data/Installed-Collectors/05Reference-Information-for-Collector-Installation/02Download-a-Collector-from-a-Static-URL) for a list of collector download URLs by Region. 
+
+If your account is in US2, the default value of `https://collectors.us2.sumologic.com/rest/download/linux/64` is correct. If your Sumo Logic account is in Europe, your build command would look like this:
+
+```
+/path/to/packer build Packer+Sumo_Shell_Provisioner.json
+\ -var 'sumo_collector_download_url=https://collectors.eu.sumologic.com/rest/download/linux/64'
+\ -var 'sumo_access_id=<sumo_access_id>' 
+\ -var 'sumo_access_key=<sumo_access_key>'
+```
+
