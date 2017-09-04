@@ -1,4 +1,4 @@
-#Description
+# Description
 
 This template uses Packer's inline [shell provisioner](https://www.packer.io/docs/provisioners/shell.html) to create an Amazon Linux machine image with Sumo Logic's collector built in.
 
@@ -7,7 +7,7 @@ The 3 components of Sumo Logic's collector are the [collector agent](https://hel
 
 If you decide to build an image with a binary package (e.g. tarball), you will need to create the user.properties file manually.
 
-#Instructions
+# Instructions
 
 After downloading Packer, use the command line to cd to the directory with the Packer+Sumo_Shell_Provisioner.json file that you've copied locally. To ensure Packer can access your AWS account resources, make sure you have an AWS authentication method to allow Terraform to control AWS resources:
 
@@ -19,8 +19,8 @@ I have chosen option 2 here so my Packer build command will not need AWS access 
 1. Create a Sumo Logic free trial [here](https://www.sumologic.com/signup-free/?utm_medium=sales+email) if you don't already have an account
 2. Generate a [Sumo Logic key pair](https://help.sumologic.com/Manage/Security/Access-Keys) inside you Sumo Logic account
 3. Test and run the Packer template
-..1 `/path/to/packer validate Packer+Sumo_Shell_Provisioner.json`
-..2 
+- `/path/to/packer validate Packer+Sumo_Shell_Provisioner.json`
+- 
 ```/path/to/packer build Packer+Sumo_Shell_Provisioner.json
 \ -var 'sumo_access_id=<sumo_access_id>' 
 \ -var -sumo_access_key=<sumo_access_key>'```
