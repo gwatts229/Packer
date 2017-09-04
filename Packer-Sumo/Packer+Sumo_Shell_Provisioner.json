@@ -1,0 +1,32 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "sumo_collector_download_url":"https://collectors.us2.sumologic.com/rest/download/linux/64",
+    "sumo_access_id": "",
+    "sumo_access_key": ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-west-2",
+    "instance_type": "t2.micro",
+    "source_ami": "ami-b04e92d0",
+    "ssh_username": "ec2-user",
+    "ami_name": "Amazon_Linux_Sumo_Image_Shell_Inline_Provisioner {{timestamp}}",
+    "associate_public_ip_address": true
+  }],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "cd /etc",
+        "sudo wget https://raw.githubusercontent.com/gwatts229/Terraform/master/sources.json/Example_1/sources.json",
+        "cd /opt",
+        "sudo wget {{ .sumo_collector_download_url }} -O SumoCollector.sh && sudo chmod +x SumoCollector.sh",
+        "sudo ./SumoCollector.sh -q -VskipRegistration=true -Vephemeral=true -Vsources=/etc/sources.json -Vsumo.accessid={{ .sumo_access_id }} -Vsumo.accesskey={{ .sumo_access_key }}"
+      ]
+    }
+  ]
+}
