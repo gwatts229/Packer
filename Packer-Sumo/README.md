@@ -20,7 +20,6 @@ I have chosen option 2 here so my Packer build command will not need AWS access 
 2. Generate a [Sumo Logic key pair](https://help.sumologic.com/Manage/Security/Access-Keys) inside you Sumo Logic account
 3. Test and run the Packer template
 - `/path/to/packer validate Packer+Sumo_Shell_Provisioner.json`
-- 
-```/path/to/packer build Packer+Sumo_Shell_Provisioner.json
+- ```/path/to/packer build Packer+Sumo_Shell_Provisioner.json
 \ -var 'sumo_access_id=<sumo_access_id>' 
 \ -var -sumo_access_key=<sumo_access_key>'```
