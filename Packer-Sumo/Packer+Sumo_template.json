@@ -1,0 +1,41 @@
+{
+  "variables": {
+    "region": "",
+    "access_key": "",
+    "secret_key": "",
+    "sumo_collector_download_url":"",
+    "sumo_access_id": "",
+    "sumo_access_key": ""
+  },
+  "builders": [{
+    "source_ami_filter": {
+        "filters": {
+            "virtualization-type": "hvm",
+            "name": "amzn-ami-hvm-????.??.?.x86_64-gp2",
+            "root-device-type": "ebs"
+        },
+        "owners": ["amazon"],
+        "most_recent": true
+      },
+    "region": "{{ user `region`}}",
+    "access_key": "{{ user `aws_access_key`}}",
+    "secret_key": "{{ user `aws_secret_key`}}",
+    "type": "amazon-ebs",
+    "instance_type": "t2.micro",
+    "ssh_username": "ec2-user",
+    "ami_name": "Packer_Sumo_Image {{timestamp}}",
+    "associate_public_ip_address": false
+  }],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "cd /etc",
+        "sudo wget {{user `sources_json_url`}}",
+        "cd /opt",
+        "sudo wget {{user `sumo_collector_download_url`}} -O SumoCollector.sh && sudo chmod +x SumoCollector.sh",
+        "sudo ./SumoCollector.sh -q -VskipRegistration=true -Vephemeral=true -Vsources=/etc/sources.json -Vsumo.accessid={{user `sumo_access_id`}} -Vsumo.accesskey={{user `sumo_access_key`}}"
+      ]
+    }
+  ]
+}
